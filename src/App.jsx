@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import LoadingScreen from './components/LoadingScreen.jsx'
+import ProjectOrbit from './components/ProjectOrbit.jsx'
 import { profile, projects, about } from './content.js'
 
 function Nav() {
@@ -12,36 +13,6 @@ function Nav() {
         <a href="#kontakt">Kontakt</a>
       </nav>
     </header>
-  )
-}
-
-function ProjectImage({ project, index }) {
-  if (project.image) {
-    return <img src={project.image} alt={project.title} loading="lazy" />
-  }
-  return (
-    <div className={`placeholder placeholder-${index % 3}`} role="img" aria-label={`Plassholder for bilde av ${project.title}`}>
-      <span>Prosjektbilde</span>
-    </div>
-  )
-}
-
-function Project({ project, index }) {
-  return (
-    <article className="project">
-      <a className="project-image" href={project.href} target="_blank" rel="noreferrer" tabIndex={-1} aria-hidden="true">
-        <ProjectImage project={project} index={index} />
-      </a>
-      <div className="project-info">
-        <h3>
-          <a href={project.href} target="_blank" rel="noreferrer">{project.title}</a>
-        </h3>
-        <p className="project-desc">{project.description}</p>
-        <ul className="tags" aria-label="Verktøy">
-          {project.tags.map((t) => <li key={t}>{t}</li>)}
-        </ul>
-      </div>
-    </article>
   )
 }
 
@@ -62,13 +33,8 @@ export default function App() {
             <h1>{profile.intro}</h1>
           </section>
 
-          <section className="work wrap" id="arbeid" aria-labelledby="arbeid-tittel">
-            <div className="section-head">
-              <h2 id="arbeid-tittel">Utvalgte prosjekter</h2>
-            </div>
-            <div className="projects">
-              {projects.map((p, i) => <Project key={p.title} project={p} index={i} />)}
-            </div>
+          <section className="work" id="arbeid" aria-labelledby="arbeid-tittel">
+            <ProjectOrbit projects={projects} title="Utvalgte prosjekter" titleId="arbeid-tittel" />
           </section>
 
           <section className="about wrap" id="om" aria-labelledby="om-tittel">

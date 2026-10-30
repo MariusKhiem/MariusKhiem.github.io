@@ -1,6 +1,6 @@
 // Alt innholdet på siden ligger her. Bytt ut eksempeltekstene med dine egne.
 // Prosjektbilder legges i mappen public/prosjekter/ og skrives som '/prosjekter/filnavn.jpg'.
-// Står image tomt (''), vises en plassholder.
+// Står image tomt (''), vises en plassholder. Bildene vises som stående kort (3:4).
 
 export const profile = {
   name: 'Marius Nguyen',

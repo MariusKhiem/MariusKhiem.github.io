@@ -85,48 +85,18 @@ p { margin: 0; }
 .hero h1 { font-size: clamp(1.9rem, 7.4vw, 7.2rem); max-width: 14ch; }
 .hero > *, .contact > * { min-width: 0; }
 
-/* Prosjekter */
+/* Prosjekter (hjulet ligger i components/ProjectOrbit.css) */
+.work { overflow-x: clip; }
 .section-head {
   display: flex;
-  align-items: baseline;
+  align-items: end;
   justify-content: space-between;
-  gap: 16px;
+  gap: 24px;
   flex-wrap: wrap;
-  padding-bottom: clamp(32px, 5vw, 56px);
-  border-bottom: 1px solid var(--line);
 }
 .section-head h2, .about h2 { font-size: clamp(2rem, 5vw, 4.25rem); }
-.projects { display: grid; gap: clamp(80px, 12vw, 160px); padding-top: clamp(48px, 7vw, 96px); }
-.project { display: grid; gap: clamp(24px, 3vw, 36px); }
-.project-image {
-  display: block;
-  overflow: hidden;
-  border-radius: clamp(12px, 1.6vw, 22px);
-  aspect-ratio: 16 / 9;
-  max-width: 100%;
-  background: var(--line);
-  text-decoration: none;
-}
-.project-image img, .placeholder { width: 100%; height: 100%; object-fit: cover; transition: transform 1s cubic-bezier(.2, .7, .2, 1); }
-.project-image:hover img, .project-image:hover .placeholder { transform: scale(1.025); }
-.project-info {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 12px clamp(24px, 5vw, 80px);
-  align-items: start;
-}
-.project h3 { font-size: clamp(1.6rem, 3vw, 2.6rem); }
-.project h3 a { text-decoration: none; }
-.project h3 a:hover { color: var(--brand); }
-.project-desc { color: var(--soft); max-width: 46ch; }
-.tags { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; grid-column: 2; }
+.tags { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .tags li { border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; text-transform: none; letter-spacing: .02em; }
-
-/* Plassholderbilder i merkevarefargene */
-.placeholder { display: grid; place-items: end start; padding: clamp(16px, 2.4vw, 32px); color: rgba(255, 255, 255, .7); font-family: var(--mono); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; }
-.placeholder-0 { background: radial-gradient(90% 120% at 15% 10%, var(--light), transparent 55%), radial-gradient(80% 90% at 85% 90%, var(--brand), transparent 60%), var(--deep); }
-.placeholder-1 { background: radial-gradient(70% 90% at 80% 20%, var(--brand), transparent 60%), radial-gradient(60% 80% at 20% 85%, #2b4466, transparent 60%), var(--ink); }
-.placeholder-2 { background: linear-gradient(140deg, #dfe7f2 0%, var(--light) 45%, var(--brand) 100%); color: rgba(12, 17, 26, .55); }
 
 /* Om meg */
 .about {
@@ -173,13 +143,10 @@ p { margin: 0; }
 }
 
 @media (max-width: 760px) {
-  .project-info, .about { grid-template-columns: minmax(0, 1fr); }
-  .tags { grid-column: auto; }
-  .project-image { aspect-ratio: 4 / 3; }
+  .about { grid-template-columns: minmax(0, 1fr); }
   .hero h1, .contact h2 { hyphens: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .project-image img, .placeholder { transition: none; }
 }

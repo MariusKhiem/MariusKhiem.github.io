@@ -1,0 +1,121 @@
+/* Prosjektkort på en stor sirkel over en lys «planet» */
+.work {
+  --card-w: clamp(170px, 24vw, 330px);
+  --orbit-r: clamp(560px, 70vw, 1100px); /* sirkelens radius */
+}
+
+.orbit-arrows { display: flex; gap: 10px; }
+.orbit-arrows button {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.orbit-arrows button:hover:not(:disabled) { background: #fff; border-color: #c8d0da; }
+.orbit-arrows button:disabled { opacity: .35; cursor: default; }
+.orbit-arrows button:focus-visible,
+.orbit-stage:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }
+
+.orbit-stage {
+  position: relative;
+  height: calc(var(--card-w) * 1.333 + clamp(140px, 18vw, 240px));
+  margin-top: clamp(32px, 6vw, 72px);
+  overflow: hidden;
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.orbit-stage.is-dragging { cursor: grabbing; }
+.orbit-stage::after { /* planeten glir over i bakgrunnen */
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 35%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, var(--paper));
+}
+.orbit-planet {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--card-w) * 1.333 * .78);
+  width: calc(var(--orbit-r) * 2.1);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 0%, #e4e9f0 0%, #d3dbe6 30%, var(--paper) 62%);
+}
+
+.orbit-card {
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  width: var(--card-w);
+  aspect-ratio: 3 / 4;
+  margin-left: calc(var(--card-w) / -2);
+  padding: clamp(14px, 1.8vw, 24px);
+  border: 0;
+  border-radius: clamp(12px, 1.4vw, 20px);
+  overflow: hidden;
+  display: grid;
+  align-content: end;
+  text-align: left;
+  font: inherit;
+  color: #fff;
+  cursor: inherit;
+  transform-origin: 50% var(--orbit-r);
+  will-change: transform;
+  box-shadow: 0 30px 60px -30px rgba(12, 17, 26, .45);
+}
+.orbit-card.has-image { padding: 0; background: var(--line); }
+.orbit-card img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+.orbit-card-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: calc(var(--card-w) * .1);
+  line-height: .92;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+/* Plassholdere i merkevarefargene, til ekte bilder er lagt inn */
+.orbit-card-0 { background: radial-gradient(90% 70% at 20% 10%, var(--light), transparent 60%), radial-gradient(90% 80% at 90% 95%, var(--brand), transparent 60%), var(--deep); }
+.orbit-card-1 { background: var(--ink); color: var(--light); }
+.orbit-card-2 { background: linear-gradient(160deg, #e8edf4, var(--light) 55%, var(--brand)); color: var(--text); }
+
+/* Valgt prosjekt */
+.orbit-info {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px clamp(24px, 5vw, 80px);
+  align-items: start;
+  padding-top: clamp(8px, 2vw, 24px);
+  transition: opacity .35s, transform .35s;
+}
+.orbit-info.is-fading { opacity: 0; transform: translateY(8px); }
+.orbit-info h3 { font-size: clamp(1.8rem, 3.6vw, 3rem); }
+.orbit-info-side { display: grid; gap: 18px; }
+.orbit-info-side p { color: var(--soft); max-width: 46ch; }
+.orbit-more {
+  justify-self: start;
+  text-decoration: none;
+  border-bottom: 2px solid var(--brand);
+  padding-bottom: 2px;
+}
+.orbit-more:hover { color: var(--brand); }
+
+@media (max-width: 760px) {
+  .work { --card-w: 58vw; --orbit-r: 150vw; }
+  .orbit-info { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-info { transition: none; }
+}
