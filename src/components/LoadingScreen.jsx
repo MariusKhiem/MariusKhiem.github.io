@@ -34,27 +34,33 @@ export default function LoadingScreen({ onFinished }) {
   }, [])
 
   // Telleren glir mot det som faktisk er lastet, men aldri raskere enn MIN_MS
+  const finished = useRef(onFinished)
+  finished.current = onFinished
   useEffect(() => {
     const start = performance.now()
     let raf = 0
+    let last = start
     let value = 0
+    const timers = []
     const tick = (now) => {
       const el = now - start
       const d = done.current
       const loaded = (d.fonts ? 0.3 : 0) + (d.page ? 0.3 : 0) + (d.gradient ? 0.4 : 0)
-      const target = el > MAX_MS ? 1 : Math.min(loaded, el / MIN_MS, 0.98 + (loaded === 1 ? 0.02 : 0))
-      value += (target - value) * 0.08
+      const target = el > MAX_MS ? 1 : Math.min(loaded, el / MIN_MS)
+      // tidsbasert, så telleren går like fort på trege og raske maskiner
+      value += (target - value) * (1 - Math.exp(-(now - last) / 180))
+      last = now
       if (target === 1 && value > 0.995) value = 1
       setShown(value)
       if (value < 1) raf = requestAnimationFrame(tick)
       else {
-        setTimeout(() => setExiting(true), 350)
-        setTimeout(onFinished, 350 + EXIT_MS)
+        timers.push(setTimeout(() => setExiting(true), 350))
+        timers.push(setTimeout(() => finished.current(), 350 + EXIT_MS))
       }
     }
     raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [onFinished])
+    return () => { cancelAnimationFrame(raf); timers.forEach(clearTimeout) }
+  }, [])
 
   return (
     <div

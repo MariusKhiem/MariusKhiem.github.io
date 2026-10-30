@@ -7,6 +7,8 @@
   place-items: center;
   overflow: hidden;
   background: var(--ink);
+  color: var(--frost);
+  font-family: var(--mono);
   clip-path: inset(0 0 0 0 round 0);
   transition: clip-path 1.1s cubic-bezier(.77, 0, .18, 1);
 }
