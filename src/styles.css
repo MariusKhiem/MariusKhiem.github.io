@@ -46,7 +46,7 @@ p { margin: 0; }
   padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
   padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
 }
-.eyebrow, .project-meta, .count, .tags, .footer, .status {
+.tags, .footer {
   font-family: var(--mono);
   font-size: .78rem;
   letter-spacing: .08em;
@@ -84,8 +84,6 @@ p { margin: 0; }
 }
 .hero h1 { font-size: clamp(1.9rem, 7.4vw, 7.2rem); max-width: 14ch; }
 .hero > *, .contact > * { min-width: 0; }
-.status { display: inline-flex; align-items: center; gap: 10px; text-transform: none; letter-spacing: .02em; font-size: .85rem; }
-.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--brand); box-shadow: 0 0 0 4px color-mix(in srgb, var(--brand) 20%, transparent); }
 
 /* Prosjekter */
 .section-head {
@@ -117,7 +115,6 @@ p { margin: 0; }
   gap: 12px clamp(24px, 5vw, 80px);
   align-items: start;
 }
-.project-head { display: grid; gap: 10px; }
 .project h3 { font-size: clamp(1.6rem, 3vw, 2.6rem); }
 .project h3 a { text-decoration: none; }
 .project h3 a:hover { color: var(--brand); }

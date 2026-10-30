@@ -33,12 +33,9 @@ function Project({ project, index }) {
         <ProjectImage project={project} index={index} />
       </a>
       <div className="project-info">
-        <div className="project-head">
-          <h3>
-            <a href={project.href} target="_blank" rel="noreferrer">{project.title}</a>
-          </h3>
-          <p className="project-meta">{project.role} · {project.year}</p>
-        </div>
+        <h3>
+          <a href={project.href} target="_blank" rel="noreferrer">{project.title}</a>
+        </h3>
         <p className="project-desc">{project.description}</p>
         <ul className="tags" aria-label="Verktøy">
           {project.tags.map((t) => <li key={t}>{t}</li>)}
@@ -62,15 +59,12 @@ export default function App() {
         <Nav />
         <main>
           <section className="hero wrap">
-            <p className="eyebrow">{profile.role} · {profile.location}</p>
             <h1>{profile.intro}</h1>
-            <p className="status"><span className="dot" aria-hidden="true" />{profile.available}</p>
           </section>
 
           <section className="work wrap" id="arbeid" aria-labelledby="arbeid-tittel">
             <div className="section-head">
               <h2 id="arbeid-tittel">Utvalgte prosjekter</h2>
-              <p className="count">{String(projects.length).padStart(2, '0')} prosjekter</p>
             </div>
             <div className="projects">
               {projects.map((p, i) => <Project key={p.title} project={p} index={i} />)}
@@ -88,7 +82,6 @@ export default function App() {
           </section>
 
           <section className="contact wrap" id="kontakt" aria-labelledby="kontakt-tittel">
-            <p className="eyebrow">Kontakt</p>
             <h2 id="kontakt-tittel">La oss lage noe sammen.</h2>
             <a className="contact-mail" href={`mailto:${profile.email}`}>{profile.email}</a>
             <ul className="links">
