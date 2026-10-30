@@ -1,0 +1,26 @@
+:root {
+  --ink: #080b12;      /* bunnfarge */
+  --deep: #1d2d47;     /* mørk blå */
+  --brand: #456990;    /* hovedfarge */
+  --light: #9bb3d6;    /* lys blå */
+  --frost: #eef2f6;    /* tekst */
+  --mute: #9aa6b2;     /* sekundær tekst */
+  --display: 'Syne', 'Avenir Next', 'Helvetica Neue', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; margin: 0; }
+body { background: var(--ink); color: var(--frost); font-family: var(--mono); }
+
+.site {
+  min-height: 100%;
+  display: grid;
+  place-content: center;
+  gap: 12px;
+  text-align: center;
+  padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px));
+}
+.site h1 { margin: 0; font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 6vw, 3.5rem); }
+.site p { margin: 0; color: var(--mute); }
