@@ -4,6 +4,7 @@ Snakk norsk med Marius. Han bruker GitHub Desktop og VS Code på Mac.
 
 ## Arbeidsflyt
 - Jobb på branchen `v1`. `main` publiseres automatisk til GitHub Pages.
+- Ikke push, merge eller lag pull request til `main` før Marius sier at alt er ferdig.
 - Vis forslag (skjermbilder eller prototype) og få godkjenning før store designendringer.
 
 ## Design
