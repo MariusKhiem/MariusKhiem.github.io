@@ -1,0 +1,116 @@
+<!doctype html>
+<!--
+  Mal for delingskortet (public/preview.png), 1200 × 627 px.
+  Endre teksten her og lag bildet på nytt med:  node design/render-preview.mjs
+-->
+<html lang="no">
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Instrument+Sans:wght@400;500&family=JetBrains+Mono:wght@400&display=swap" />
+<style>
+  :root {
+    --ink: #080b12;
+    --deep: #1d2d47;
+    --brand: #456990;
+    --light: #9bb3d6;
+    --frost: #eef2f6;
+    --display: 'Syne', 'Avenir Next', sans-serif;
+    --body: 'Instrument Sans', 'Helvetica Neue', Arial, sans-serif;
+    --mono: 'JetBrains Mono', Menlo, monospace;
+  }
+  html, body { margin: 0; }
+  .card {
+    position: relative;
+    width: 1200px;
+    height: 627px;
+    overflow: hidden;
+    background: var(--ink);
+    color: var(--frost);
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding: 84px 88px 72px;
+    box-sizing: border-box;
+  }
+  /* myke lysflater i blåtonene fra lasteskjermen */
+  .glow {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(48% 70% at 88% 18%, rgba(155, 179, 214, .55), transparent 70%),
+      radial-gradient(55% 80% at 78% 78%, rgba(69, 105, 144, .85), transparent 70%),
+      radial-gradient(60% 90% at 105% 50%, var(--deep), transparent 75%),
+      radial-gradient(70% 60% at 0% 100%, rgba(29, 45, 71, .7), transparent 70%);
+    filter: blur(8px);
+  }
+  /* buen fra prosjekt-hjulet */
+  .arc {
+    position: absolute;
+    left: 50%;
+    top: 470px;
+    width: 2200px;
+    height: 2200px;
+    transform: translateX(-12%);
+    border-radius: 50%;
+    border: 1px solid rgba(238, 242, 246, .14);
+  }
+  .grain {
+    position: absolute;
+    inset: 0;
+    opacity: .1;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .content { position: relative; display: grid; align-content: start; gap: 28px; }
+  .name {
+    margin: 0;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 132px;
+    line-height: .9;
+    letter-spacing: -0.035em;
+    background: linear-gradient(180deg, #ffffff 0%, #d5dce4 40%, #7d8a97 56%, #eef2f6 72%, #aab5c1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .role {
+    margin: 0;
+    font-family: var(--body);
+    font-size: 40px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: rgba(238, 242, 246, .82);
+  }
+  .url {
+    position: relative;
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 26px;
+    color: var(--light);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .url::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--light);
+    box-shadow: 0 0 0 5px rgba(155, 179, 214, .2);
+  }
+</style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="glow"></div>
+    <div class="arc"></div>
+    <div class="grain"></div>
+    <div class="content">
+      <h1 class="name">Marius<br />Nguyen</h1>
+      <p class="role">IT-student ved UiA</p>
+    </div>
+    <p class="url">mariuskhiem.github.io</p>
+  </div>
+</body>
+</html>
