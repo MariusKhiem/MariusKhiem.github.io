@@ -57,7 +57,7 @@ export default function App() {
           </section>
 
           <section className="contact wrap" id="kontakt" aria-labelledby="kontakt-tittel">
-            <h2 id="kontakt-tittel">La oss lage noe sammen.</h2>
+            <h2 id="kontakt-tittel">Ta gjerne kontakt.</h2>
             <a className="contact-mail" href={`mailto:${profile.email}`}>{profile.email}</a>
             <ul className="links">
               {profile.links.map((l) => (
@@ -68,7 +68,6 @@ export default function App() {
         </main>
         <footer className="footer wrap">
           <p>© {new Date().getFullYear()} {profile.name}</p>
-          <p>Bygget med React og Three.js</p>
         </footer>
       </div>
       {loading && <LoadingScreen onFinished={() => setLoading(false)} />}
