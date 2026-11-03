@@ -1,8 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import LoadingScreen from './components/LoadingScreen.jsx'
 import ProjectOrbit from './components/ProjectOrbit.jsx'
 import SectionRail from './components/SectionRail.jsx'
-import { profile, projects, about } from './content.js'
+import ProjectView from './components/ProjectView.jsx'
+import { profile, projects as rawProjects, about, slugify } from './content.js'
+
+const projects = rawProjects.map((p) => ({ ...p, slug: slugify(p.title) }))
+const HASH = '#prosjekt-'
+const slugFromHash = () => (location.hash.startsWith(HASH) ? location.hash.slice(HASH.length) : null)
 
 function Nav() {
   return (
@@ -26,6 +31,33 @@ const SECTIONS = [
 
 export default function App() {
   const [loading, setLoading] = useState(true)
+  // åpent prosjekt styres av adressen (#prosjekt-navn), så tilbake-knappen og delte lenker virker
+  const [openSlug, setOpenSlug] = useState(slugFromHash)
+  const pushed = useRef(false)
+
+  useEffect(() => {
+    const sync = () => setOpenSlug(slugFromHash())
+    window.addEventListener('popstate', sync)
+    window.addEventListener('hashchange', sync)
+    return () => {
+      window.removeEventListener('popstate', sync)
+      window.removeEventListener('hashchange', sync)
+    }
+  }, [])
+
+  const openProject = (slug) => {
+    if (slug === openSlug) return
+    if (openSlug) history.replaceState(null, '', HASH + slug)
+    else { history.pushState(null, '', HASH + slug); pushed.current = true }
+    setOpenSlug(slug)
+  }
+  const closeProject = () => {
+    if (pushed.current) { pushed.current = false; history.back() }
+    else { history.replaceState(null, '', location.pathname + location.search); setOpenSlug(null) }
+  }
+
+  const openIndex = projects.findIndex((p) => p.slug === openSlug)
+  const openP = openIndex >= 0 ? projects[openIndex] : null
 
   // fjern den mørke startbakgrunnen fra index.html når lasteskjermen er ferdig
   useEffect(() => {
@@ -34,7 +66,7 @@ export default function App() {
 
   return (
     <>
-      <div className="site" id="top" aria-hidden={loading}>
+      <div className="site" id="top" aria-hidden={loading || !!openP}>
         <Nav />
         <SectionRail sections={SECTIONS} />
         <main>
@@ -43,7 +75,13 @@ export default function App() {
           </section>
 
           <section className="work" id="arbeid" aria-labelledby="arbeid-tittel">
-            <ProjectOrbit projects={projects} title="Utvalgte prosjekter" titleId="arbeid-tittel" />
+            <ProjectOrbit
+              projects={projects}
+              title="Utvalgte prosjekter"
+              titleId="arbeid-tittel"
+              onOpen={(i) => openProject(projects[i].slug)}
+              paused={!!openP}
+            />
           </section>
 
           <section className="about wrap" id="om" aria-labelledby="om-tittel">
@@ -70,6 +108,16 @@ export default function App() {
           <p>© {new Date().getFullYear()} {profile.name}</p>
         </footer>
       </div>
+      {openP && !loading && (
+        <ProjectView
+          key="prosjekt"
+          project={openP}
+          index={openIndex}
+          next={projects[(openIndex + 1) % projects.length] === openP ? null : projects[(openIndex + 1) % projects.length]}
+          onClose={closeProject}
+          onOpen={openProject}
+        />
+      )}
       {loading && <LoadingScreen onFinished={() => setLoading(false)} />}
     </>
   )

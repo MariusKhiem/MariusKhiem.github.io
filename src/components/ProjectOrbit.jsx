@@ -10,8 +10,8 @@ const reduceMotion =
 
 // Prosjektkort på en stor sirkel, inspirert av «Orbit» av rico.
 // Hjulet går rundt av seg selv, og stopper mens du holder musen over eller bruker det.
-// Dra, klikk på et kort, eller bruk pilene for å bytte prosjekt.
-export default function ProjectOrbit({ projects, title, titleId }) {
+// Dra, klikk på et kort, eller bruk pilene for å bytte prosjekt. Klikk på kortet i midten for å åpne det.
+export default function ProjectOrbit({ projects, title, titleId, onOpen, paused: pausedProp = false }) {
   const n = projects.length
   const mid = Math.floor((n - 1) / 2)
   const [active, setActive] = useState(mid)
@@ -22,6 +22,9 @@ export default function ProjectOrbit({ projects, title, titleId }) {
   const cardRefs = useRef([])
   const motion = useRef({ pos: mid, target: mid, dragging: false, moved: false, sx: 0, sp: 0 })
   const auto = useRef({ next: performance.now() + AUTO_MS, hover: false, focus: false, inView: false })
+
+  const pausedRef = useRef(pausedProp)
+  pausedRef.current = pausedProp
 
   const clampIdx = (i) => Math.max(0, Math.min(n - 1, i))
   // når noen bruker hjulet selv, venter den automatiske rotasjonen litt ekstra
@@ -37,7 +40,7 @@ export default function ProjectOrbit({ projects, title, titleId }) {
       const dt = Math.min(now - last, 64)
       last = now
       const a = auto.current
-      const paused = m.dragging || a.hover || a.focus || !a.inView || document.hidden
+      const paused = pausedRef.current || m.dragging || a.hover || a.focus || !a.inView || document.hidden
       if (paused) a.next = Math.max(a.next, now + AUTO_MS)
       else if (!reduceMotion && n > 1 && now >= a.next) {
         // neste prosjekt; etter det siste går hjulet tilbake til det første
@@ -154,8 +157,13 @@ export default function ProjectOrbit({ projects, title, titleId }) {
             ref={(el) => { cardRefs.current[i] = el }}
             className={`orbit-card orbit-card-${i % 3}${proj.image ? ' has-image' : ''}`}
             tabIndex={-1}
-            aria-label={proj.title}
-            onClick={() => { if (!motion.current.moved) go(i) }}
+            aria-label={`Åpne ${proj.title}`}
+            onClick={() => {
+              if (motion.current.moved) return
+              // kortet i midten åpner prosjektet; de andre flyttes til midten
+              if (i === Math.round(motion.current.target)) onOpen?.(i)
+              else go(i)
+            }}
           >
             {proj.image
               ? <img src={proj.image} alt="" draggable="false" />
@@ -171,7 +179,7 @@ export default function ProjectOrbit({ projects, title, titleId }) {
           <ul className="tags" aria-label="Verktøy">
             {p.tags.map((t) => <li key={t}>{t}</li>)}
           </ul>
-          {p.href && <a className="orbit-more" href={p.href} target="_blank" rel="noreferrer">Se prosjektet ↗</a>}
+          <button type="button" className="orbit-more" onClick={() => onOpen?.(shown)}>Se prosjektet →</button>
         </div>
       </div>
     </>

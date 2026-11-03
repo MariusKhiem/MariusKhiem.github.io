@@ -1,0 +1,129 @@
+/* Egen side for ett prosjekt, lagt over porteføljen */
+.pv {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: var(--paper);
+  animation: pv-in .55s cubic-bezier(.2, .7, .2, 1) both;
+}
+.pv.is-closing { animation: pv-out .38s cubic-bezier(.6, 0, .8, .3) both; }
+@keyframes pv-in { from { opacity: 0; transform: translateY(48px); } to { opacity: 1; transform: none; } }
+@keyframes pv-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(32px); } }
+
+.pv-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  padding-block: calc(18px + env(safe-area-inset-top, 0px)) 18px;
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  backdrop-filter: blur(16px) saturate(160%);
+}
+.pv-bar-inner { display: flex; align-items: center; justify-content: space-between; }
+/* snarveiene på høyre side vises ikke her, så innholdet bruker hele bredden */
+.pv .wrap { padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+.pv-back, .pv-close {
+  font: inherit;
+  color: var(--soft);
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 8px 0;
+  transition: color .2s;
+}
+.pv-back:hover, .pv-close:hover { color: var(--text); }
+.pv-close {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  font-size: 1rem;
+}
+.pv-back:focus-visible, .pv-close:focus-visible, .pv-next:focus-visible { outline: 2px solid var(--brand); outline-offset: 4px; }
+
+.pv-body { display: grid; gap: clamp(48px, 7vw, 96px); padding-top: clamp(48px, 9vh, 120px); }
+.pv-head { display: grid; gap: clamp(24px, 3vw, 36px); }
+.pv-head h1 { font-size: clamp(2.4rem, 8vw, 7rem); }
+.pv-lead { font-size: clamp(1.25rem, 2.2vw, 1.85rem); line-height: 1.4; letter-spacing: -0.01em; max-width: 32ch; color: var(--soft); }
+
+.pv-image {
+  overflow: hidden;
+  border-radius: clamp(14px, 1.8vw, 26px);
+  aspect-ratio: 16 / 9;
+  max-width: 100%;
+  background: var(--line);
+  display: grid;
+  align-content: end;
+  padding: clamp(20px, 3vw, 44px);
+}
+.pv-image:has(img) { padding: 0; }
+.pv-image img { width: 100%; height: 100%; object-fit: cover; }
+.pv-image span {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2rem, 7vw, 6rem);
+  line-height: .9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.pv-image-0 { background: radial-gradient(90% 70% at 20% 10%, var(--light), transparent 60%), radial-gradient(90% 80% at 90% 95%, var(--brand), transparent 60%), var(--deep); }
+.pv-image-1 { background: var(--ink); }
+.pv-image-1 span { color: var(--light); }
+.pv-image-2 { background: linear-gradient(160deg, #e8edf4, var(--light) 55%, var(--brand)); }
+.pv-image-2 span { color: var(--text); }
+
+.pv-text {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 40px clamp(32px, 6vw, 96px);
+  align-items: start;
+}
+.pv-details { display: grid; gap: 1.2em; max-width: 62ch; }
+.pv-details p { font-size: 1.125rem; }
+.pv-side { display: grid; gap: 24px; justify-items: start; }
+.pv-link {
+  font-size: 1.125rem;
+  text-decoration: none;
+  border-bottom: 2px solid var(--brand);
+  padding-bottom: 3px;
+}
+.pv-link:hover { color: var(--brand); }
+
+.pv-next {
+  display: block;
+  width: 100%;
+  margin-top: clamp(100px, 14vw, 180px);
+  padding-block: clamp(48px, 7vw, 88px) calc(clamp(48px, 7vw, 88px) + env(safe-area-inset-bottom, 0px));
+  border: 0;
+  border-top: 1px solid var(--line);
+  background: none;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.pv-next-title {
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  transition: color .25s;
+}
+.pv-next:hover .pv-next-title { color: var(--brand); }
+
+@media (max-width: 760px) {
+  .pv-text { grid-template-columns: minmax(0, 1fr); }
+  .pv-image { aspect-ratio: 4 / 3; }
+  .pv-head h1 { hyphens: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv, .pv.is-closing { animation: none; }
+}
