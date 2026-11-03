@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import LoadingScreen from './components/LoadingScreen.jsx'
 import ProjectOrbit from './components/ProjectOrbit.jsx'
+import SectionRail from './components/SectionRail.jsx'
 import { profile, projects, about } from './content.js'
 
 function Nav() {
@@ -16,6 +17,13 @@ function Nav() {
   )
 }
 
+const SECTIONS = [
+  { id: 'start', label: 'Start' },
+  { id: 'arbeid', label: 'Prosjekter' },
+  { id: 'om', label: 'Om meg' },
+  { id: 'kontakt', label: 'Kontakt' },
+]
+
 export default function App() {
   const [loading, setLoading] = useState(true)
 
@@ -28,8 +36,9 @@ export default function App() {
     <>
       <div className="site" id="top" aria-hidden={loading}>
         <Nav />
+        <SectionRail sections={SECTIONS} />
         <main>
-          <section className="hero wrap">
+          <section className="hero wrap" id="start">
             <h1>{profile.intro}</h1>
           </section>
 
