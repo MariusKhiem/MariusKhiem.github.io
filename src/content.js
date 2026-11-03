@@ -37,6 +37,6 @@ export const projects = [
 ]
 
 export const about = {
-  text: 'Jeg er fra Kristiansand og tar en bachelor i IT ved UiA. Jeg liker å bygge fullstack-løsninger med C#, ASP.NET Core og PostgreSQL, med fokus på god brukeropplevelse og smart bruk av AI. Jeg er engasjert, tar initiativ og liker å dra prosjekter fremover sammen med andre.',
+  text: 'Jeg er fra Kristiansand og tar en bachelor i IT og informasjonssystemer ved UiA. Jeg er opptatt av å bygge fullstack-løsninger med C#, ASP.NET Core og PostgreSQL, med fokus på god brukeropplevelse og smart bruk av AI. Jeg er engasjert, tar initiativ og drar gjerne prosjekter fremover sammen med andre. Jeg er alltid ute etter læring, og utfordrer meg selv til å lære nye ting.',
   skills: ['React', 'JavaScript', 'C# / .NET', 'Three.js', 'HTML og CSS', 'Git og GitHub'], // EKSEMPEL
 }
