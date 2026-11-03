@@ -5,10 +5,10 @@
 export const profile = {
   name: 'Marius Nguyen',
   intro: 'Jeg bygger gjennomtenkte løsninger, fra database til brukeropplevelse.',
-  email: 'din@epost.no',                                                // BYTT UT
+  email: 'bigbangkhiem@gmail.com',
   links: [
     { label: 'GitHub', href: 'https://github.com/MariusKhiem' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/' },           // BYTT UT
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/marius-nguyen-189544313' },
   ],
 }
 
