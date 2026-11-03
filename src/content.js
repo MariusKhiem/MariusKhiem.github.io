@@ -4,7 +4,7 @@
 
 export const profile = {
   name: 'Marius Nguyen',
-  intro: 'Jeg bygger digitale produkter som er raske, enkle og gjennomtenkte.', // EKSEMPEL
+  intro: 'Jeg bygger gjennomtenkte løsninger, fra database til brukeropplevelse.',
   email: 'din@epost.no',                                                // BYTT UT
   links: [
     { label: 'GitHub', href: 'https://github.com/MariusKhiem' },
@@ -37,7 +37,6 @@ export const projects = [
 ]
 
 export const about = {
-  // EKSEMPEL
-  text: 'Jeg er en utvikler som liker å gjøre kompliserte ting enkle. Jeg jobber helst i skjæringspunktet mellom design og kode, der små detaljer gjør stor forskjell.',
+  text: 'Jeg er fra Kristiansand og tar en bachelor i IT ved UiA. Jeg liker å bygge fullstack-løsninger med C#, ASP.NET Core og PostgreSQL, med fokus på god brukeropplevelse og smart bruk av AI. Jeg er engasjert, tar initiativ og liker å dra prosjekter fremover sammen med andre.',
   skills: ['React', 'JavaScript', 'C# / .NET', 'Three.js', 'HTML og CSS', 'Git og GitHub'], // EKSEMPEL
 }

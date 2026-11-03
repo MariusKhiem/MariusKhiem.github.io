@@ -82,7 +82,7 @@ p { margin: 0; }
   padding-top: clamp(80px, 16vh, 180px);
   padding-bottom: clamp(100px, 18vh, 200px);
 }
-.hero h1 { font-size: clamp(1.9rem, 7.4vw, 7.2rem); max-width: 14ch; }
+.hero h1 { font-size: clamp(1.5rem, 6.4vw, 6.2rem); max-width: 14ch; }
 .hero > *, .contact > * { min-width: 0; }
 
 /* Prosjekter (hjulet ligger i components/ProjectOrbit.css) */
@@ -144,7 +144,7 @@ p { margin: 0; }
 
 @media (max-width: 760px) {
   .about { grid-template-columns: minmax(0, 1fr); }
-  .hero h1, .contact h2 { hyphens: auto; }
+  .contact h2 { hyphens: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
