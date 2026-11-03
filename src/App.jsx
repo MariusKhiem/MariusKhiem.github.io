@@ -57,7 +57,7 @@ export default function App() {
           </section>
 
           <section className="contact wrap" id="kontakt" aria-labelledby="kontakt-tittel">
-            <h2 id="kontakt-tittel">Ta gjerne kontakt.</h2>
+            <h2 id="kontakt-tittel">Ser du etter en utvikler? Ta gjerne kontakt!</h2>
             <a className="contact-mail" href={`mailto:${profile.email}`}>{profile.email}</a>
             <ul className="links">
               {profile.links.map((l) => (
